@@ -60,7 +60,7 @@ function USAGE() {
 
 # Cleaning character strings
 function str_expurgation() {
-  echo $1 | tr ' <>{}()[]é\'\' '_' | sed "s:':\\\':"
+  echo $1 | tr ' <>{}()[]é\'\' '_' | sed "s:':\\\':" | sed "s/\r//g"
 }
 
 # Function to use Podman
