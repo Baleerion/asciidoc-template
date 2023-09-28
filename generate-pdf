@@ -116,6 +116,7 @@ function runadocpdf() {
     ${ADOC_CMD} \
         -I ${TOP_LEVEL}/addons/gems/prawn-forms-0.1/lib \
         -r ${TOP_LEVEL}/addons/prawn-forms-block.rb \
+        -r ${TOP_LEVEL}/addons/asciidoctor-list.rb \
         -a reportdir="${CUR_DIR}" \
         -a ej-base-dir="${TOP_LEVEL}" \
         "${REPORTNAME}"
@@ -161,7 +162,6 @@ if [ "${INPUT}" ] ; then
     # Get the revision number and the project name
     REV_NUMBER=$(str_expurgation $(sed -En 's/^:revnumber: (.*)/\1/p' vars/document-vars.adoc))
     PROJECT_NAME=$(str_expurgation "$(sed -En 's/^:subject: (.*)/\1/p' vars/document-vars.adoc)")
-    echo $PROJECT_NAME
     OUTFILE="${PROJECT_NAME}_${REV_NUMBER}.pdf"
   fi
   REPORTNAME=$INPUT
