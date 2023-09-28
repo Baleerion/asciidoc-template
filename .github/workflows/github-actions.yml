@@ -1,0 +1,12 @@
+name: Generate PDF
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: asciidoctor/docker-asciidoctor:1.56.0
+    steps:
+      - run: ./generate-pdf -f document.adoc
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFs
+          path: *.pdf
