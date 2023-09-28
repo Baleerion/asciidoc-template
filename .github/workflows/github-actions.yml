@@ -3,12 +3,12 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: asciidoctor/docker-asciidoctor:1.56.0
+    container:
+      image: asciidoctor/docker-asciidoctor:1.56.0
+      options: --user 1001
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-        with:
-          set-safe-directory: '*'
       - run: ./generate-pdf -f document.adoc
       - uses: actions/upload-artifact@v3
         with:
