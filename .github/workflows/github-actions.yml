@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     container: asciidoctor/docker-asciidoctor:1.56.0
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - run: ./generate-pdf -f document.adoc
       - uses: actions/upload-artifact@v3
         with:
