@@ -1,0 +1,16 @@
+// --------------------------------
+// Variables for the document
+// --------------------------------
+
+:subject: My little poney
+:subject-bis: The return
+:author: Baleerion
+
+// If 'draft' is set to true, there is a background image on all pages
+:draft: true
+
+ifeval::[ "{draft}" == "true"]
+:page-background-image: image:draft.png[]
+endif::[]
+
+:revnumber: v1.0.0

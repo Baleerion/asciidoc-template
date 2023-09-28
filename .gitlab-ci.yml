@@ -1,0 +1,14 @@
+stages:
+  - build
+
+generate_pdf:
+  image: asciidoctor/docker-asciidoctor:1.56.0
+  stage: build
+  allow_failure: false
+  script:
+    - "./generate-pdf -f document.adoc"
+  artifacts:
+    name: "PDFs"
+    expire_in: 2 weeks
+    paths:
+    - "*.pdf"

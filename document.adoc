@@ -1,0 +1,66 @@
+include::locale/attributes.adoc[]
+include::vars/render-vars.adoc[]
+include::vars/document-vars.adoc[]
+
+= {subject}: {subject-bis}
+
+<<<
+toc::[]
+
+<<<
+    
+[discrete]
+== List of figures
+list-of::image[]
+
+== Lorem ipsum dolor sit amet
+
+include::content/donec.adoc[leveloffset=+2]
+
+== Proin rhoncus felis nisi : placerat
+
+=== Quisque ultricies
+
+==== Maecenas efficitur odio vel purus
+
+include::content/rhoncus.adoc[leveloffset=+4]
+
+==== Ornare quis fringilla
+
+include::content/sollicitudin.adoc[leveloffset=+4]
+
+=== Maecenas efficitur
+
+==== Praesent volutpat
+
+include::content/viverra.adoc[leveloffset=+4]
+
+==== Praesent nec
+
+include::content/suscipit.adoc[leveloffset=+4]
+
+==== Donec a turpis
+
+include::content/pharetra.adoc[leveloffset=+4]
+
+== Donec sed arcu mattis
+
+=== Pellentesque mattis quam quis
+
+=== Ultrices posuere cubilia
+
+include::content/elementum.adoc[leveloffset=+3]
+
+=== Duis eget pellentesque metus
+
+==== Nam dignissim egestas
+
+include::content/ultrices.adoc[leveloffset=+4]
+
+==== Nulla facilisi
+
+include::content/congue.adoc[leveloffset=+4]
+
+=== Maecenas congue
+
+include::content/sapien.adoc[leveloffset=+3]

@@ -1,0 +1,11 @@
+Proin viverra efficitur lorem eget venenatis:
+
+. gravida footnote:[Praesent ut est eu urna tincidunt interdum non sit amet est.]
+. tincidunt
+. commodo
+. tellus
+. Vestibulum
+
+Donec lobortis vulputate! footnote:[Vestibulum porttitor nisl nec arcu.]
+
+Duis viverra molestie.

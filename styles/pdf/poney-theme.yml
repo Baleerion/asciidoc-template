@@ -1,0 +1,115 @@
+extends:
+  - ./base-theme.yml
+  - ./default-theme.yml
+
+color_primary: #F71A5B
+color_secondary: #9A12B2
+
+font:
+  catalog:
+    merge: true
+    ubuntuText:
+      normal: Ubuntu-Regular.ttf
+      bold: Ubuntu-Bold.ttf
+      italic: Ubuntu-Italic.ttf
+      bold_italic: Ubuntu-BoldItalic.ttf
+    M+ 1p Fallback: GEM_FONTS_DIR/mplus1p-regular-fallback.ttf
+    Noto Emoji: GEM_FONTS_DIR/notoemoji-subset.ttf
+  fallbacks: [M+ 1p Fallback, Noto Emoji]
+
+base:
+  align: justify
+  font_family: ubuntuText
+
+page:
+  margin: [25mm, 17mm, 28mm, 17mm]
+
+title_page:
+  align: center
+  background-image: image:title_page.png[]
+  title:
+    top: 35%
+    font-color: $color_primary
+  font_family: ubuntuText
+  font-color: $color_secondary
+  authors:
+    content:
+      name_only: "{author}"
+  revision:
+    display: none
+
+image:
+  caption:
+    align: center
+
+header:
+  height: 19mm
+  border_color: #C6C7C8
+  border_width: 0.25
+  recto:
+    left:
+      content: image:logo.png[width=80]
+    center:
+      content:
+    right:
+      content: |
+        {revnumber}
+  verso:
+    left:
+      content: image:logo.png[width=80]
+    center:
+      content:
+    right:
+      content: |
+        {revnumber}
+
+footer:
+  height: 19mm
+  border_color: #C6C7C8
+  border_width: 0.25
+  recto:
+    left:
+        content: |
+        
+    center:
+      content: |
+        {document-title} +
+        {subject-bis}
+    right:
+      content: |
+        {page-number}
+  verso:
+    left:
+      content: |
+
+    center:
+      content: |
+        {document-title} +
+        {subject-bis}
+    right:
+      content: |
+        {page-number}
+
+table:
+  background_color: transparent
+  head:
+    background_color: C6C7C8
+
+toc:
+  title:
+    align: center
+  h1-font-color: $color_secondary
+  h2-font-color: $color_primary
+  h3-font-color: $color_secondary
+  h4-font-color: $color_primary
+  h5-font-color: $color_secondary
+  h6-font-color: $color_primary
+
+heading:
+  font-family: ubuntuText
+  h1-font-color: $color_secondary
+  h2-font-color: $color_primary
+  h3-font-color: $color_secondary
+  h4-font-color: $color_primary
+  h5-font-color: $color_secondary
+  h6-font-color: $color_primary 

@@ -1,0 +1,18 @@
+// --------------------------------
+// Document configuration for render
+// --------------------------------
+:doctype: book
+:listing-caption: Listing
+:toc: macro
+:toclevels: 4
+:sectnumlevels: 6
+:numbered:
+:chapter-label:
+:icons: font
+:pdf-page-size: A4
+:pdf-theme: poney
+:pdf-themesdir: styles/pdf/
+:pdf-fontsdir: fonts/
+:imagesdir: images/
+:!chapter-signifier:
+
