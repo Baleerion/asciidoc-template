@@ -13,4 +13,4 @@ ifeval::[ "{draft}" == "true"]
 :page-background-image: image:draft.png[]
 endif::[]
 
-:revnumber: v1.0.0
+:revnumber: v1.0.1
