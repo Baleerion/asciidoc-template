@@ -52,6 +52,8 @@ function USAGE() {
     ""
     "     -d|--docker  Try to generate using Docker"
     ""
+    "     -n|--nerdctl  Try to generate using Nerdctl"
+    ""
     "     -h,--help"
     "           Prints this help usage message."
     ""
@@ -93,7 +95,6 @@ function rundocker() {
     docker run --rm --name asciidoctor \
         -v "${TOP_LEVEL}/:/documents/" \
         -w "/documents" \
-        -u root \
         ${IMAGE} \
           sh -c "${ADOC_CMD} \
                 -I /documents/addons/gems/prawn-forms-0.1/lib \
@@ -106,6 +107,28 @@ function rundocker() {
     RUN_CODE=0
   else
     GENERATE_PDF_EXIT_CODE=3
+  fi
+}
+
+# Function to use Nerdctl
+function runnerdctl() {
+  if command -v nerdctl > /dev/null ; then
+    echo "Generating pdf using nerdctl... "
+    nerdctl run --rm --name asciidoctor \
+        -v "${TOP_LEVEL}/:/documents/" \
+        -w "/documents" \
+        ${IMAGE} \
+          sh -c "${ADOC_CMD} \
+                -I /documents/addons/gems/prawn-forms-0.1/lib \
+                -r /documents/addons/prawn-forms-block.rb \
+                -r /documents/addons/asciidoctor-list.rb \
+                -a ej-base-dir=/documents/ \
+                -a ej-projectdir=\"/documents\" \
+                \"${REPORTNAME}\""
+    GENERATE_PDF_EXIT_CODE=$?
+    RUN_CODE=0
+  else
+    GENERATE_PDF_EXIT_CODE=5
   fi
 }
 
@@ -131,20 +154,21 @@ USAGE
 
 while [ -n "$1" ] ; do
   case "$1" in
-    -l          ) LANGUAGE=$2 ; shift  ;;
-    -f          ) INPUT=$2 ; shift ;;
-    -o          ) OUTPUT=$2 ; shift ;;
-    -a|--adoc   ) GENERATE=A ;;
-    -p|--podman ) GENERATE=P ;;
-    -d|--docker ) GENERATE=D ;;
-    --lang=*    ) LANGUAGE=$(echo $1 | cut -d'=' -f 2) ;;
-    --name=*    ) INPUT=$(echo $1 | cut -d'=' -f 2) ;;
-    -h|--help   ) printf "%s\n" "${USAGE_ARR[@]}"
-                  exit 0
-                ;;
-    *           ) printf "%s\n" "${USAGE_ARR[@]}" "Unknown option $1"
-                  exit 1
-                ;;
+    -l           ) LANGUAGE=$2 ; shift  ;;
+    -f           ) INPUT=$2 ; shift ;;
+    -o           ) OUTPUT=$2 ; shift ;;
+    -a|--adoc    ) GENERATE=A ;;
+    -p|--podman  ) GENERATE=P ;;
+    -d|--docker  ) GENERATE=D ;;
+    -n|--nerdctl ) GENERATE=N ;;
+    --lang=*     ) LANGUAGE=$(echo $1 | cut -d'=' -f 2) ;;
+    --name=*     ) INPUT=$(echo $1 | cut -d'=' -f 2) ;;
+    -h|--help    ) printf "%s\n" "${USAGE_ARR[@]}"
+                   exit 0
+                 ;;
+    *            ) printf "%s\n" "${USAGE_ARR[@]}" "Unknown option $1"
+                   exit 1
+                 ;;
   esac
   shift
 done
@@ -171,11 +195,14 @@ if [ "${INPUT}" ] ; then
     runpodman
   elif [ "${GENERATE}" = "D" ] ; then
     rundocker
+  elif [ "${GENERATE}" = "N" ] ; then
+    runnerdctl
   elif [ "$GENERATE" = "A" ] ; then
     runadocpdf
   else
     runpodman
     [ "${RUN_CODE}" -eq "250" ] && rundocker
+    [ "${RUN_CODE}" -eq "250" ] && runnerdctl
     [ "${RUN_CODE}" -eq "250" ] && runadocpdf
   fi
 
@@ -184,7 +211,8 @@ if [ "${INPUT}" ] ; then
       1) echo "ERROR: Something went wrong with PDF generation, see output" ;;
       2) echo "ERROR: Podman not found, please use other option." ;;
       3) echo "ERROR: Docker not found, please use other option." ;;
-      4) printf "ERROR: asciidoctor-pdf not found. \n\nasciidoctor-pdf is required to generate the PDF. Please follow the \ninstructions found at: \n  https://source.redhat.com/groups/public/kmo/engagementjournalstandardization" ;;
+      4) printf "ERROR: asciidoctor-pdf not found. \n\nasciidoctor-pdf is required to generate the PDF." ;;
+      5) echo "ERROR: Nerdctl not found, please use other option." ;;
       125) echo "ERROR: Attempted to use docker but Docker daemon wasn't running" ;;
       *) echo "ERROR: Something unknown went wrong" ;;
   esac
